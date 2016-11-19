@@ -66,4 +66,7 @@ function snapshot() {
 
   //Do an actual API call - need to pass to something that has API
   //app.inputs.create_image_from_base64(base64_bytes=bytes);
+  var results = predict(bytes);
+  console.log("Did an API call!");
+  console.log(results);
 }

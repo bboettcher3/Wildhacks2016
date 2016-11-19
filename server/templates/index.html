@@ -3,8 +3,9 @@
   <head>
     <title>Home Security WH16</title>
     <link rel="stylesheet" type="text/css" href="/static/assets/style.css">
+    <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
+    <script type="text/javascript" src="/static/functions.js"></script>
     <script type="text/javascript" src="/static/viewer.js"></script>
-    <script type="text/javascript" src="../../tests/functions.js"></script>
     <!-- Latest compiled and minified CSS -->
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
     <!-- Optional theme -->
@@ -14,8 +15,6 @@
   </head>
   <body>
     <video id="cameraVideoInput" width="640" height="480" autoplay></video>
-    <button id="snap" onclick="captureImage()">Snap Photo</button>
-    <canvas id="cameraCanvas" width="640" height="480"></canvas>
 
     <!-- todo: make some kind of central init point for js scripts -->
     <script>
