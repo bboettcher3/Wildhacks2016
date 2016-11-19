@@ -11,7 +11,7 @@ def create_model(name):
 	return model
 
 # byteArray is an array of image bytes, name is the name of the user who uploaded the images
-def parse(byteArray, name):
+def addImages(byteArray, name):
 	app = ClarifaiApp(appInfo["client_id"], appInfo["client_secret"])
 
 	# import images for the user
@@ -21,3 +21,7 @@ def parse(byteArray, name):
 	# get/create model, add name as concept
 	model = create_model(name)
 	model = model.train
+    
+def filterPerson(byteArray):
+    # import images for the user
+		result = app.models.get("allowed").predict_by_base64(byteArray)
