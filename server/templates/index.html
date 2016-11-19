@@ -46,7 +46,11 @@
                 var inp = document.getElementById("images");
                 for (var i = 0; i < inp.files.length; ++i) {
                     var name = inp.files.item(i);
-                    alert("here is a file image: " + name);
+                    var canvas = document.createElement("canvas");
+                    var context = canvas.getContext("2d");
+                    context.drawImage(name, 0, 0);
+                    var bytes = canvas.toDataURL("image/png");
+                    alert(bytes);
                 }
                 /*var numFiles = files.length;
                 var byteArray = [];
