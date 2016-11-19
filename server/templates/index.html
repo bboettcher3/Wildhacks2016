@@ -66,7 +66,7 @@
                         ctx.drawImage(img, 0, 0);
                         dataURL = canvas.toDataURL("image/png");
                         byteArray.push(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-                    };
+                    }
                     img.src = _URL.createObjectURL(file);
                 }
             });
