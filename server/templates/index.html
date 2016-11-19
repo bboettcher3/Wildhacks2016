@@ -48,7 +48,7 @@
                     var canvas = document.createElement("canvas");
                     var ctx = canvas.getContext("2d");
                     var img = inp.files.item(i);
-                    ctx.drawImage(imageElement, 0, 0, img.width, img.height);
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
                     var dataURL = ctx.toDataURL("image/png");
                     alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                 }
