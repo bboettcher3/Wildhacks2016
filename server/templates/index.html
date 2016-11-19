@@ -43,8 +43,10 @@
         </script>
         <script type="text/javascript">
             var _URL = window.URL || window.webkitURL;
+            var byteArray;
             $("#images").change(function (e) {
                 var inp = document.getElementById("images");
+                byteArray = [];
                 for (var i = 0; i < inp.files.length; i++) {
                     var file = inp.files[i];
                     var img = new Image();
@@ -55,33 +57,14 @@
                         var ctx = canvas.getContext("2d");
                         ctx.drawImage(img, 0, 0);
                         dataURL = canvas.toDataURL("image/png");
-                        alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+                        byteArray.push(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                     };
                     img.src = _URL.createObjectURL(file);
                 }
             });
             function imageArray() {
-                var inp = document.getElementById("images");
-                var byteArray = [];
-                for (var i = 0; i < inp.files.length; i++) {
-                    var img = new Image;
-                    
-                    /*var fr = new FileReader;
-                    var dataURL;
-                    fr.onload = function() {
-                        var img = new Image;
-                        img.onload = function() {
-                            var canvas = document.createElement("canvas");
-                            canvas.width = img.width;
-                            canvas.height = img.height;
-                            var ctx = canvas.getContext("2d");
-                            ctx.drawImage(img, 0, 0);
-                            dataURL = canvas.toDataURL("image/png");
-                            alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-                        };
-                        img.src = fr.result;
-                    };
-                    fr.readAsDataURL(inp.files[i]);*/
+                for (var i = 0; i < byteArray.length; i++) {
+                    alert(byteArray[i]);
                 }
             }/*
             function imageArray() {
