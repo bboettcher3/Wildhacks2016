@@ -32,7 +32,7 @@ function authorize() {
             console.log("Failed to authenticate.");
             console.log(error);
         }
-    )
+    );
 }
 
 /**
@@ -43,7 +43,7 @@ function reauthorize() {
         authorize();
     }
 }
-
+/*
 function addConcept(name) {
     //check if model has been created yet
     if(model == null) {
@@ -61,7 +61,7 @@ function addConcept(name) {
     } else {
         concepts.push(model.mergeConcepts([name]));
     }
-}
+}*/
 
 /**
     * Adds an array of images (in base64_bytes representation) to the model
@@ -76,15 +76,28 @@ function addImages(imageArray, name) {
         
     }
 
+    var images = [];
+
     for(var i = 0; i < imageArray.length; i++) {
-        app.inputs.create_image_bytes(base64_bytes=imageArray[i]).then(
-            function(result) {
-                app.input.add_concepts(result, [name])
-            }, function(error) {
-                console.log("Failed to add concept " + i + "to image");
-                console.log(error);
-            }
-        )
+        images.push({base64: imageArray[i], concepts: [{id: name, value: true}]});
+    }
+    // Create images in app, for model to use
+    app.inputs.create(images).then(createModel);
+
+    // Create or retrieve model "allowed", add concept if needed
+    function createModel(inputs) {
+        app.models.get("allowed").then(
+            app.models.initModel("allowed").then(
+                model.addConcepts({name});
+            ),
+            app.models.create("allowed", [name]).then(trainModel);
+        );
+    }
+
+    // Train model
+    function trainModel(model) {
+        model.train().then(predict(imageArray));
+    }
         /*app.inputs.create({
             base64: imageArray[i],
             concepts: [name]
@@ -106,9 +119,18 @@ function addImages(imageArray, name) {
             });
         } */
 
-        mergeConcepts(name);
-        app.models.get("allowed").train();
-    }
+        //mergeConcepts(name);
+        /*app.inputs.mergeConcepts([
+            {
+                id: client_id,
+                concepts: [
+                    {
+                        id: name
+                    }
+                ]
+            },
+        ]);
+        app.models.get("allowed").train();/*
 }
 
 /**
