@@ -42,6 +42,7 @@
             window.onload = initViewer();
         </script>
         <script type="text/javascript">
+            var _URL = window.URL || window.webkitURL;
             $("#images").change(function (e) {
                 var inp = document.getElementById("images");
                 for (var i = 0; i < inp.files.length; i++) {
