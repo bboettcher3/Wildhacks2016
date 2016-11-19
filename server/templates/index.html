@@ -42,7 +42,7 @@
             window.onload = initViewer();
         </script>
         <script type="text/javascript">
-            function toByte() {
+            function imageArray() {
                 var inp = document.getElementById("images");
                 var byteArray = [];
                 for (var i = 0; i < inp.files.length; ++i) {
@@ -57,21 +57,20 @@
                             var ctx = canvas.getContext("2d");
                             ctx.drawImage(img, 0, 0);
                             dataURL = canvas.toDataURL("image/png");
-                            byteArray.push(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+                            alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                         };
                         img.src = fr.result;
                     };
                     fr.readAsDataURL(inp.files[i]);
                 }
-                return byteArray;
-            }
+            }/*
             function imageArray() {
                 byteArray = toByte();
                 if (byteArray == null) alert("hello");
                 for (var i = 0; i < byteArray.length; i++) {
                     alert(byteArray[i]);
                 }
-            }
+            }*/
         </script>
     </body>
 </html>
