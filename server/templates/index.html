@@ -57,17 +57,16 @@
                 for (; i < inp.files.length; i++) {
                     var file = inp.files.item(i);
                     var img = new Image();
+                    img.src = _URL.createObjectURL(file);
                     img.onload = function () {
                         var canvas = document.getElementById("canvas2");
                         canvas.width = img.width;
                         canvas.height = img.height;
-                        alert(img.width);
                         var ctx = canvas.getContext("2d");
                         ctx.drawImage(img, 0, 0);
                         dataURL = canvas.toDataURL("image/png");
                         byteArray.push(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                     }
-                    img.src = _URL.createObjectURL(file);
                 }
             });
             function check() {
