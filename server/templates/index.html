@@ -46,14 +46,15 @@
             function imageArray() {
                 var files = document.querySelector("input[type=file]").files;
                 var numFiles = files.length;
-                reader.addEventListener("load", function () {
-                    var text = reader.result;
-                }, false);
-                var reader = new FileReader();
+                var byteArray = [];
                 for (var i = 0; i < numFiles; i++) {
-                    reader.readAsDataURL(file[i]);
+                    var canvas = document.createElement("canvas");
+                    var context = canvas.getContext("2d");
+                    context.drawImage(files[i], 0, 0);
+                    var bytes = canvas.toDataURL("image/png");
+                    byteArray.push(bytes);
                 }
-                alert(reader.result);
+                alert(byteArray[0]);
             }
         </script>
     </body>
