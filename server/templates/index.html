@@ -55,7 +55,7 @@
                 byteArray = [];
                 var i = 0;
                 for (; i < inp.files.length; i++) {
-                    var file = inp.files[i];
+                    var file = inp.files.item(i);
                     var img = new Image();
                     img.onload = function () {
                         var canvas = document.getElementById("canvas2");
