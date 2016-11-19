@@ -11,7 +11,6 @@ image1 = ClImage(url='https://samples.clarifai.com/metro-north.jpg')
 #dict
 result = model.predict([image1])
 
-print
 results = result.get("outputs")[0].get("data").get("concepts")
 print "Image contains:"
 for r in results:
