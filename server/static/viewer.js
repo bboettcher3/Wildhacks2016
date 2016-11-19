@@ -36,7 +36,7 @@ function initViewer() {
 
             //Take a screenshot every time interval - only do this when permitted
             console.log("Setting an interval!");
-            setInterval(snapshot(video.id), 1000);
+            setInterval(snapshot(), 1000);
         });
     }
 }
@@ -49,7 +49,7 @@ function snapshot(id) {
     console.log("Taking a snapshot!");
 
     //Actual video recording element
-    var video = document.getElementById(id);
+    var video = document.getElementById("cameraVideoInput");
 
     //A canvas upon which we'll draw
     var canvas = document.createElement("canvas");
