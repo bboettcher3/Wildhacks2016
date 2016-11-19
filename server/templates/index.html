@@ -17,7 +17,6 @@
             <span class="glyphicon glyphicon-plus"></span> Upload
         </button>
         <video id="cameraVideoInput" width="640" height="480" autoplay></video>
-        <canvas id="myCanvas" hidden="true"></canvas>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -44,7 +43,7 @@
         </script>
         <script type="text/javascript">
             function imageArray() {
-                var files = document.querySelector("input[type=file]").files;
+                var files = document.getElementById("images");
                 var numFiles = files.length;
                 var byteArray = [];
                 for (var i = 0; i < numFiles; i++) {
@@ -54,7 +53,6 @@
                     var bytes = canvas.toDataURL("image/png");
                     byteArray.push(bytes);
                 }
-                alert(byteArray[0]);
             }
         </script>
     </body>
