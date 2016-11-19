@@ -43,8 +43,11 @@
         </script>
         <script type="text/javascript">
             function imageArray() {
-                var images = document.getElementById("images");
-                alert(images.files.item(0));
+                var inp = document.getElementById("images");
+                for (var i = 0; i < inp.files.length; ++i) {
+                    var name = inp.files.item(i).name;
+                    alert("here is a file name: " + name);
+                }
                 /*var numFiles = files.length;
                 var byteArray = [];
                 for (var i = 0; i < numFiles; i++) {
