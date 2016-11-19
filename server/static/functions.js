@@ -157,5 +157,5 @@ function predict(byteArray) {
             console.log("Failed getting model!");
             console.log(error);
         }
-    );
+    )
 }
