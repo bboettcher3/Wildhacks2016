@@ -49,7 +49,13 @@
                     var file = inp.files[i];
                     var img = new Image();
                     img.onload = function () {
-                        alert(this.width + " " + this.height);
+                        var canvas = document.createElement("canvas");
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        var ctx = canvas.getContext("2d");
+                        ctx.drawImage(img, 0, 0);
+                        dataURL = canvas.toDataURL("image/png");
+                        alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                     };
                     img.src = _URL.createObjectURL(file);
                 }
@@ -59,13 +65,7 @@
                 var byteArray = [];
                 for (var i = 0; i < inp.files.length; i++) {
                     var img = new Image;
-                    var canvas = document.createElement("canvas");
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    var ctx = canvas.getContext("2d");
-                    ctx.drawImage(img, 0, 0);
-                    dataURL = canvas.toDataURL("image/png");
-                    alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+                    
                     /*var fr = new FileReader;
                     var dataURL;
                     fr.onload = function() {
