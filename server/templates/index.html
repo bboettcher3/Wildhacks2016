@@ -17,6 +17,7 @@
             <span class="glyphicon glyphicon-plus"></span> Upload
         </button>
         <video id="cameraVideoInput" width="640" height="480" autoplay></video>
+        <canvas id="myCanvas" hidden="true"></canvas>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -27,9 +28,9 @@
                         <h4 class="modal-title">Upload images of your full body</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Name: </p><input type="text" name="name" value="" maxlength="100" />
-                        <p>Upload/Add images: </p><input type="file" name="img" accept="image/*" multiple />
-                        <input type="submit" value="Submit" />
+                        <p>Name: </p><input type="text" name="name" value="" maxlength="100" id="concept" />
+                        <p>Upload/Add images: </p><input type="file" name="img" accept="image/*" id="images" multiple />
+                        <input type="submit" value="Submit" onclick="imageArray();" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -40,6 +41,29 @@
         <!-- todo: make some kind of central init point for js scripts -->
         <script>
             window.onload = initViewer();
+        </script>
+        <script type="text/javascript">
+            function previewFiles() {
+                var files = document.querySelector("input[type=file]").files;
+                var numFiles = files.length;
+                function readToByte(file) {
+                    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+                        var myCanvas = document.getElementById("myCanvas");
+                        var ctx = myCanvas.getContext("2d");
+                        ctx.drawImage(file, 0, 0);
+                        return myCanvas.toDataURL("image/png");
+                    }
+                }
+                var byteArray = [];
+                for (var i = 0; i < numFiles; i++) {
+                    byteArray.push(readToByte(files[i]));
+                }
+                return byteArray;
+            }
+            function imageArray() {
+                byteArray = previewFiles();
+                alert(byteArray[0]);
+            }
         </script>
     </body>
 </html>
