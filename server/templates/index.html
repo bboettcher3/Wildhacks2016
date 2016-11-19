@@ -43,9 +43,9 @@
         </script>
         <script type="text/javascript">
             function imageArray() {
-                var files = document.getElementById("images");
-                var numFiles = files.length;
-                alert(numFiles);
+                var files = document.getElementById("images").files[0];
+                alert(files);
+                /*var numFiles = files.length;
                 var byteArray = [];
                 for (var i = 0; i < numFiles; i++) {
                     var canvas = document.createElement("canvas");
@@ -53,7 +53,7 @@
                     context.drawImage(files[i], 0, 0);
                     var bytes = canvas.toDataURL("image/png");
                     byteArray.push(bytes);
-                }
+                }*/
             }
         </script>
     </body>
