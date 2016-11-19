@@ -70,8 +70,8 @@
             });
             function check() {
                 if (byteArray.length == 0) alert("Please select at least one image.");
-                else if alert("Please enter your first name.");
-                else addImages(byteArray, document.getElementById('concept').value);
+                else if (document.getElementById("concept").value == "") alert("Please enter your first name.");
+                else addImages(byteArray, document.getElementById("concept").value);
             }
             /*
             function imageArray() {
