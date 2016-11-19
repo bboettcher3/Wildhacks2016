@@ -42,8 +42,9 @@
             window.onload = initViewer();
         </script>
         <script type="text/javascript">
-            function imageArray() {
+            function toByte() {
                 var inp = document.getElementById("images");
+                var byteArray = [];
                 for (var i = 0; i < inp.files.length; ++i) {
                     var fr = new FileReader;
                     var dataURL;
@@ -56,28 +57,19 @@
                             var ctx = canvas.getContext("2d");
                             ctx.drawImage(img, 0, 0);
                             dataURL = canvas.toDataURL("image/png");
-                            alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+                            byteArray.push(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                         };
                         img.src = fr.result;
                     };
                     fr.readAsDataURL(inp.files[i]);
-                    /*var canvas = document.createElement("canvas");
-                    var ctx = canvas.getContext("2d");
-                    var img = inp.files.item(i);
-                    alert("name: " + img.names);*/
-                    /*ctx.drawImage(img, 0, 0, img.width, img.height);
-                    var dataURL = ctx.toDataURL("image/png");
-                    alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));*/
                 }
-                /*var numFiles = files.length;
-                var byteArray = [];
-                for (var i = 0; i < numFiles; i++) {
-                    var canvas = document.createElement("canvas");
-                    var context = canvas.getContext("2d");
-                    context.drawImage(files[i], 0, 0);
-                    var bytes = canvas.toDataURL("image/png");
-                    byteArray.push(bytes);
-                }*/
+                return byteArray;
+            }
+            function imageArray() {
+                byteArray = toByte();
+                for (var i = 0; i < byteArray.length; i++) {
+                    alert(byteArray[i]);
+                }
             }
         </script>
     </body>
