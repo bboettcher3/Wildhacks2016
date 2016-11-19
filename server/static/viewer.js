@@ -64,14 +64,6 @@ function initViewer2() {
             console.log(err.name + ": " + err.message);
         });
 
-        //What are we requesting from the user? Typically HD video2, if possible.
-        var constraints = {
-            video2: {
-                width: 1280,
-                height: 720
-            }
-        };
-
         //Actually request the camera and display it (if permitted)
         navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
             video2.src = window.URL.createObjectURL(stream);
