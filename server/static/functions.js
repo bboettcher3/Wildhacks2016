@@ -88,7 +88,7 @@ function addImages(imageArray, name) {
     function createModel(inputs) {
         app.models.get("allowed").then(
             app.models.initModel("allowed").then(
-                model.addConcepts({name});
+                model.addConcepts({name})
             ),
             app.models.create("allowed", [name]).then(trainModel);
         );
