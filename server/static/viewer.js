@@ -66,8 +66,8 @@ function initViewer2() {
 
         var constraints = {
             video: {
-                width: 640,
-                height: 360
+                width: 320,
+                height: 180
             }
         };
 
