@@ -17,6 +17,7 @@
             <span class="glyphicon glyphicon-plus"></span> Upload
         </button>
         <video id="cameraVideoInput" width="640" height="480" autoplay></video>
+        <canvas id="canvas2"></canvas>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -51,7 +52,7 @@
                     var file = inp.files[i];
                     var img = new Image();
                     img.onload = function () {
-                        var canvas = document.createElement("canvas2");
+                        var canvas = document.getElementById("canvas2");
                         canvas.width = img.width;
                         canvas.height = img.height;
                         var ctx = canvas.getContext("2d");
