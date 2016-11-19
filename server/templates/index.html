@@ -53,7 +53,8 @@
             $("#images").change(function (e) {
                 var inp = document.getElementById("images");
                 byteArray = [];
-                for (var i = 0; i < inp.files.length; i++) {
+                var i = 0;
+                for (; i < inp.files.length; i++) {
                     var file = inp.files[i];
                     var img = new Image();
                     img.onload = function () {
@@ -71,7 +72,11 @@
             function check() {
                 if (typeof byteArray === "undefined" || byteArray.length == 0) alert("Please select at least one image.");
                 else if (document.getElementById("concept").value == "") alert("Please enter your first name.");
-                else addImages(byteArray, document.getElementById("concept").value);
+                else /*addImages(byteArray, document.getElementById("concept").value);*/{
+                    var i = 0;
+                    for (; i < byteArray.length; i++)
+                        alert(byteArray[i])
+                }
             }
             /*
             function imageArray() {
