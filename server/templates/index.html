@@ -35,7 +35,7 @@
                         <div class="col-sm-6" style="border-left: 1px solid black;">
                             <video id="cameraVideoInput2" width="320" height="180" autoplay></video>
                         </div>
-                        <button onclick="addImages(byteArray, document.getElementById('concept').value)">Submit</button>
+                        <button onclick="check();">Submit</button>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -67,7 +67,13 @@
                     };
                     img.src = _URL.createObjectURL(file);
                 }
-            });/*
+            });
+            function check() {
+                if (document.getElementById("concept").value != "")
+                    addImages(byteArray, document.getElementById('concept').value)
+                else alert("Please enter your first name.");
+            }
+            /*
             function imageArray() {
                 for (var i = 0; i < byteArray.length; i++) {
                     alert(byteArray[i]);
