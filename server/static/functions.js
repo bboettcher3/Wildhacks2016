@@ -8,6 +8,9 @@ var video = document.getElementById("cameraVideoInput");
 var access_token = "";
 var expire_time = 0;
 
+var concepts= [];
+var model;
+
 /**
     * Authorizes a user with our given client ID and secret.
     * Call this before doing any API calls- and call reauthorize() for any API
@@ -42,10 +45,21 @@ function reauthorize() {
 }
 
 function addConcept(name) {
-    if(app.models.get("allowed") == null) {
-        app.models.create(model="allowed", conceptsData=[name]);
+    //check if model has been created yet
+    if(model == null) {
+        app.models.create(model="allowed").then(
+            function(newModel) {
+                model = newModel;
+                //console.log("modelz");
+                console.log("model: " + model);
+            }, function(error) {
+                console.log(error);
+            })
+        //console.log(model.toObject());
+        var newConcept = app.concepts.create([name]);
+        concepts.push(app.models.mergeConcepts(model, [newConcept]));
     } else {
-        app.models.get("allowed").mergeConcepts([name]);
+        concepts.push(model.mergeConcepts([name]));
     }
 }
 
@@ -54,6 +68,13 @@ function addConcept(name) {
     */
 function addImages(imageArray, name) {
     reauthorize();
+    
+    addConcept(name);
+    
+    if (model.get(name) != null) {
+        console.log("Concept does not exist, creating it now");
+        
+    }
 
     for(var i = 0; i < imageArray.length; i++) {
         app.inputs.create_image_bytes(base64_bytes=imageArray[i]).then(
@@ -104,7 +125,7 @@ function predict(byteArray) {
             model.predict(byteArray).then(
                 function(response) {
                     //console.log(response);
-                    console.log(response.data.status);
+                    //console.log(response.data.status);
                     //var results = response.get("data");
                     //console.log(results);
                 }, function(error) {
