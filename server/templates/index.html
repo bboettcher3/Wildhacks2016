@@ -47,8 +47,8 @@
                 var files = document.querySelector("input[type=file]").files;
                 var numFiles = files.length;
                 function readToByte(file) {
-                    var dataURL;
                     if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+                        var dataURL;
                         var img = new Image();
                         img.crossOrigin = "Anonymous";
                         img.onload = function() {
@@ -67,7 +67,7 @@
                 }
                 var byteArray = [];
                 for (var i = 0; i < numFiles; i++) {
-                    byteArray.push(readToByte(files[i]));
+                    byteArray.push(readToByte(files[i].src));
                 }
                 return byteArray;
             }
