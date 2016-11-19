@@ -3,7 +3,8 @@
     */
 function initViewer() {
     // Grab elements, create settings, etc.
-    var video = document.getElementById('cameraVideoInput');
+    var video = document.getElementById("cameraVideoInput");
+    var video2 = document.getElementById("cameraVideoInput2");
 
     // Get access to the camera!
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -31,12 +32,16 @@ function initViewer() {
 
         //Actually request the camera and display it (if permitted)
         navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-                video.src = window.URL.createObjectURL(stream);
-                video.play();
+            video.src = window.URL.createObjectURL(stream);
+            video.play();
 
-                //Take a screenshot every time interval - only do this when permitted
-                console.log("Setting an interval!");
-                setInterval(snapshot, 1000);
+            video2.src = window.URL.createObjectURL(stream);
+            video2.play();
+
+            //Take a screenshot every time interval - only do this when permitted
+            console.log("Setting an interval!");
+            setInterval(snapshot(video.id), 1000);
+            setInterval(snapshot(video2.id), 1000);
         });
     }
 }
@@ -45,22 +50,22 @@ function initViewer() {
     * This function takes a frame from the video stream and saves it as a
     * collection of bytes. This can then be sent to the Clarifai API.
     */
-function snapshot() {
+function snapshot(id) {
     console.log("Taking a snapshot!");
 
     //Actual video recording element
-    var video = document.getElementById('cameraVideoInput');
+    var video = document.getElementById(id);
 
     //A canvas upon which we'll draw
-    var canvas = document.createElement('canvas');
-    var context = canvas.getContext('2d');
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
 
     //Draw the image - no need for error checking since this method is only
     //called when the stream is open & valid
     context.drawImage(video, 0, 0);
 
     //Get the bytes of the image
-    var bytes = canvas.toDataURL('image/png');
+    var bytes = canvas.toDataURL("image/png");
     //console.log("Image data: " + bytes);
 
     //Do an actual API call - need to pass to something that has API
