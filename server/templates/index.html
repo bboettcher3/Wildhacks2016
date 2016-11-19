@@ -56,11 +56,11 @@
                             var ctx = canvas.getContext("2d");
                             ctx.drawImage(img, 0, 0);
                             dataURL = canvas.toDataURL("image/png");
+                            alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                         };
                         img.src = fr.result;
                     };
                     fr.readAsDataURL(inp.files[i]);
-                    alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                     /*var canvas = document.createElement("canvas");
                     var ctx = canvas.getContext("2d");
                     var img = inp.files.item(i);
