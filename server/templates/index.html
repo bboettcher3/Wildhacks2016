@@ -47,11 +47,22 @@
                 var files = document.querySelector("input[type=file]").files;
                 var numFiles = files.length;
                 function readToByte(file) {
+                    var dataURL;
                     if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
-                        var myCanvas = document.getElementById("myCanvas");
-                        var ctx = myCanvas.getContext("2d");
-                        ctx.drawImage(file, 0, 0);
-                        return myCanvas.toDataURL("image/png");
+                        var img = new Image();
+                        img.crossOrigin = "Anonymous";
+                        img.onload = function() {
+                            var myCanvas = document.getElementById("myCanvas");
+                            var ctx = myCanvas.getContext("2d");
+                            myCanvas.height = this.height;
+                            myCanvas.width = this.width;
+                            ctx.drawImage(this, 0, 0);
+                            dataURL = myCanvas.toDataURL("image/png");
+                            callback(dataURL);
+                            myCanvas = null;
+                        }
+                        img.src = file;
+                        return dataURL;
                     }
                 }
                 var byteArray = [];
