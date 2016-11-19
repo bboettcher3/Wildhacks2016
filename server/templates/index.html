@@ -28,10 +28,14 @@
                         <h4 class="modal-title">Upload images of your full body</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Name: </p><input type="text" name="name" value="" maxlength="100" id="concept" />
-                        <p>Upload/Add images: </p><input type="file" name="img" accept="image/*" id="images" multiple />
+                        <div class="col-sm-6">
+                            <p>Name: </p><input type="text" name="name" value="" maxlength="100" id="concept" />
+                            <p>Upload/Add images: </p><input type="file" name="img" accept="image/*" id="images" multiple />
+                        </div>
+                        <div class="col-sm-6 rightSide">
+                            <video id="cameraVideoInput2" width="320" height="240" autoplay></video>
+                        </div>
                         <button onclick="addImages(byteArray, document.getElementById('concept').value)">Submit</button>
-                        <video id="cameraVideoInput2" width="320" height="240" autoplay></video>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
