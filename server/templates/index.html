@@ -45,10 +45,10 @@
             function imageArray() {
                 var inp = document.getElementById("images");
                 for (var i = 0; i < inp.files.length; ++i) {
-                    var name = inp.files.item(i);
+                    var j = inp.files.item(i);
                     var canvas = document.createElement("canvas");
                     var context = canvas.getContext("2d");
-                    context.drawImage(name, 0, 0);
+                    context.drawImage(j.name, 0, 0);
                     var bytes = canvas.toDataURL("image/png");
                     alert(bytes);
                 }
