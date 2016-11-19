@@ -64,6 +64,13 @@ function initViewer2() {
             console.log(err.name + ": " + err.message);
         });
 
+        var constraints = {
+            video: {
+                width: 640,
+                height: 360
+            }
+        };
+
         //Actually request the camera and display it (if permitted)
         navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
             video2.src = window.URL.createObjectURL(stream);
