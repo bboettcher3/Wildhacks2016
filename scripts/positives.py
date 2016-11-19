@@ -4,8 +4,10 @@ Simple example showing Clarifai Custom Model training and prediction
 This file contains the positives for each person
 """
 
-from clarifai_basic import ClarifaiCustomModel
-
+#Provided code
+#from clarifai_basic import ClarifaiCustomModel
+from clarifai.rest import ClarifaiApp
+from clarifai.rest import Image as ClImage
 
 # instantiate clarifai client
 clarifai = ClarifaiCustomModel()
@@ -16,9 +18,9 @@ concept_name = 'nate'
 NATE_POSITIVES = [
   '../photos/Nate/nate.jpg',
   '../photos/Nate/nate01.jpg',
-  '../photos/Nate/nate02.jpg', 
-  '../photos/Nate/nate03.jpg', 
-  '../photos/Nate/nate04.jpg', 
+  '../photos/Nate/nate02.jpg',
+  '../photos/Nate/nate03.jpg',
+  '../photos/Nate/nate04.jpg',
 ]
 
 # add the positive example images to the model
@@ -27,11 +29,11 @@ for positive_example in NATE_POSITIVES:
 
 
 # negatives are not required but will help if you want to discriminate between similar concepts
-' add negatives here if wanted '
+#add negatives here if wanted
 
 # add the negative example images to the model
-'for negative_example in PHISH_NEGATIVES:
-'  clarifai.negative(negative_example, concept_name)
+#for negative_example in PHISH_NEGATIVES:
+#  clarifai.negative(negative_example, concept_name)
 
 # train the model
 clarifai.train(concept_name)
