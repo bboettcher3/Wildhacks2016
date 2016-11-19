@@ -14,7 +14,7 @@
     </head>
     <body>
         <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
-            <span class="glyphicon glyphicon-plus"></span> Upload
+            <span class="glyphicon glyphicon-plus" onclick="initViewer2();"></span> Upload
         </button>
         <video id="cameraVideoInput" width="640" height="480" autoplay></video>
         <canvas id="canvas2" hidden></canvas>
@@ -31,6 +31,7 @@
                         <p>Name: </p><input type="text" name="name" value="" maxlength="100" id="concept" />
                         <p>Upload/Add images: </p><input type="file" name="img" accept="image/*" id="images" multiple />
                         <button onclick="addImages(byteArray, document.getElementById('concept').value)">Submit</button>
+                        <video id="cameraVideoInput2" width="320" height="240" autoplay></video>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

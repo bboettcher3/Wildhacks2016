@@ -36,7 +36,50 @@ function initViewer() {
 
             //Take a screenshot every time interval - only do this when permitted
             console.log("Setting an interval!");
-            setInterval(snapshot(), 1000);
+            setInterval(snapshot(video.id), 1000);
+        });
+    }
+}
+
+/**
+    * Called to initialize the viewer and screenshotter loop.
+    */
+function initViewer2() {
+    // Grab elements, create settings, etc.
+    var video2 = document.getElementById("cameraVideoInput2");
+
+    // Get access to the camera!
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        console.log("Camera is supported!");
+
+        //Enumerate all devices - for debugging info
+        navigator.mediaDevices.enumerateDevices()
+        .then(function(devices) {
+            devices.forEach(function(device) {
+                console.log(device.kind + ": " + device.label +
+                            " id = " + device.deviceId);
+            });
+        })
+        .catch(function(err) {
+            console.log(err.name + ": " + err.message);
+        });
+
+        //What are we requesting from the user? Typically HD video2, if possible.
+        var constraints = {
+            video2: {
+                width: 1280,
+                height: 720
+            }
+        };
+
+        //Actually request the camera and display it (if permitted)
+        navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+            video2.src = window.URL.createObjectURL(stream);
+            video2.play();
+
+            //Take a screenshot every time interval - only do this when permitted
+            console.log("Setting an interval!");
+            setInterval(snapshot(video2.id), 1000);
         });
     }
 }
@@ -49,7 +92,7 @@ function snapshot(id) {
     console.log("Taking a snapshot!");
 
     //Actual video recording element
-    var video = document.getElementById("cameraVideoInput");
+    var video = document.getElementById(id);
 
     //A canvas upon which we'll draw
     var canvas = document.createElement("canvas");
@@ -69,3 +112,5 @@ function snapshot(id) {
     console.log("Did an API call!");
     console.log(results);
 }
+
+
