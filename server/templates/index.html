@@ -45,14 +45,14 @@
             function imageArray() {
                 var inp = document.getElementById("images");
                 for (var i = 0; i < inp.files.length; ++i) {
-                    var canvas = document.createElement("canvas");
+                    //var canvas = document.createElement("canvas");
                     var img = inp.files.item(i);
-                    canvas.width = img.width;
+                    /*canvas.width = img.width;
                     canvas.height = img.height;
                     var ctx = canvas.getContext("2d");
-                    ctx.drawImage(img, 0, 0);
-                    var dataURL = canvas.toDataURL("image/png");
-                    alert(dataURL);
+                    ctx.drawImage(img, 0, 0);*/
+                    var dataURL = img.toDataURL("image/png");
+                    alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                 }
                 /*var numFiles = files.length;
                 var byteArray = [];
