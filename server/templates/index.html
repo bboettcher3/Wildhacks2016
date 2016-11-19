@@ -46,7 +46,7 @@
                 var inp = document.getElementById("images");
                 for (var i = 0; i < inp.files.length; ++i) {
                     var reader = new FileReader();
-                    reader.readAsDataURL(files.item(i));
+                    reader.readAsDataURL(inp.files.item(i));
                     alert(reader.result);
                 }
                 /*var numFiles = files.length;
