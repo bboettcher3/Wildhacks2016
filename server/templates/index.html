@@ -56,6 +56,7 @@
                 var i = 0;
                 for (; i < inp.files.length; i++) {
                     var file = inp.files.item(i);
+                    alert(file.name);
                     var img = new Image();
                     img.src = _URL.createObjectURL(file);
                     img.onload = function () {
