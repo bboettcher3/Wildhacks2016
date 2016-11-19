@@ -29,7 +29,7 @@
                     <div class="modal-body">
                         <p>Name: </p><input type="text" name="name" value="" maxlength="100" id="concept" />
                         <p>Upload/Add images: </p><input type="file" name="img" accept="image/*" id="images" multiple />
-                        <button onclick="imageArray()">Submit</button>
+                        <button onclick="addImages(byteArray, document.getElementById('concept').value)">Submit</button>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -51,7 +51,7 @@
                     var file = inp.files[i];
                     var img = new Image();
                     img.onload = function () {
-                        var canvas = document.createElement("canvas");
+                        var canvas = document.createElement("canvas2");
                         canvas.width = img.width;
                         canvas.height = img.height;
                         var ctx = canvas.getContext("2d");
@@ -61,15 +61,8 @@
                     };
                     img.src = _URL.createObjectURL(file);
                 }
-            });
+            });/*
             function imageArray() {
-                for (var i = 0; i < byteArray.length; i++) {
-                    alert(byteArray[i]);
-                }
-            }/*
-            function imageArray() {
-                byteArray = toByte();
-                if (byteArray == null) alert("hello");
                 for (var i = 0; i < byteArray.length; i++) {
                     alert(byteArray[i]);
                 }
