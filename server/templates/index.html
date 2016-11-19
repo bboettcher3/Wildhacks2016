@@ -43,37 +43,17 @@
             window.onload = initViewer();
         </script>
         <script type="text/javascript">
-            function previewFiles() {
+            function imageArray() {
                 var files = document.querySelector("input[type=file]").files;
                 var numFiles = files.length;
-                function readToByte(file) {
-                    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
-                        var dataURL;
-                        var img = new Image();
-                        img.crossOrigin = "Anonymous";
-                        img.onload = function() {
-                            var myCanvas = document.getElementById("myCanvas");
-                            var ctx = myCanvas.getContext("2d");
-                            myCanvas.height = this.height;
-                            myCanvas.width = this.width;
-                            ctx.drawImage(this, 0, 0);
-                            dataURL = myCanvas.toDataURL("image/png");
-                            callback(dataURL);
-                            myCanvas = null;
-                        }
-                        img.src = file;
-                        return dataURL;
-                    }
-                }
-                var byteArray = [];
+                reader.addEventListener("load", function () {
+                    var text = reader.result;
+                }, false);
+                var reader = new FileReader();
                 for (var i = 0; i < numFiles; i++) {
-                    byteArray.push(readToByte(files[i].src));
+                    reader.readAsDataURL(file[i]);
                 }
-                return byteArray;
-            }
-            function imageArray() {
-                byteArray = previewFiles();
-                alert(byteArray[0]);
+                alert(reader.result);
             }
         </script>
     </body>
