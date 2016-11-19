@@ -4,7 +4,6 @@
 function initViewer() {
     // Grab elements, create settings, etc.
     var video = document.getElementById("cameraVideoInput");
-    var video2 = document.getElementById("cameraVideoInput2");
 
     // Get access to the camera!
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -35,13 +34,9 @@ function initViewer() {
             video.src = window.URL.createObjectURL(stream);
             video.play();
 
-            video2.src = window.URL.createObjectURL(stream);
-            video2.play();
-
             //Take a screenshot every time interval - only do this when permitted
             console.log("Setting an interval!");
             setInterval(snapshot(video.id), 1000);
-            setInterval(snapshot(video2.id), 1000);
         });
     }
 }
