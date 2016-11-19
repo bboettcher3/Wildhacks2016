@@ -128,7 +128,7 @@ function addImages(imageArray, name) {
                 ]
             },
         ]);
-        app.models.get("allowed").train();/*
+        app.models.get("allowed").train();*/
 }
 
 /**
