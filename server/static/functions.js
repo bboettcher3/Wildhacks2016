@@ -52,12 +52,20 @@ function addConcept(name) {
 /**
   * Adds an array of images (in base64_bytes representation) to the model
   */
-function addImages(bytesArray, name) {
+function addImages(imageArray, name) {
   reauthorize();
 
-  for(var i = 0; i < bytesArray.length; i++) {
-    app.inputs.create({
-      base64: byteArray,
+  for(var i = 0; i < imageArray.length; i++) {
+    app.inputs.create_image_bytes(base64_bytes=imageArray[i]).then(
+        function(result) {
+            app.input.add_concepts(result, [name])
+        }, function(error) {
+            console.log("Failed to add concept " + i + "to image");
+            console.log(error);
+        }
+    )
+    /*app.inputs.create({
+      base64: imageArray[i],
       concepts: [name]
     }).then(
       function(inputs) {
@@ -75,7 +83,7 @@ function addImages(bytesArray, name) {
         base64: byteArray,
         concepts: [name]
       });
-    }
+    } */
 
     mergeConcepts(name);
     app.models.get("allowed").train();
@@ -108,33 +116,4 @@ function predict(byteArray) {
       console.log(error);
     }
   );
-
-  /*
-    app.models.get("allowed").predict(byteArray).then(
-      function(response) {
-        console.log("Succeeded in getting prediction results!");
-        var results = result.get("outputs")[0].get("data").get("concepts");
-        for (var i = 0; i < results.length; i++) {
-            console.log( results[i].get("name") );
-        }
-        return results;
-      }, function(err) {
-        console.log("Error when trying to process prediction!");
-        return null;
-      }
-    );
-    return null;
-    */
 }
-/*
-var captureImage = function() {
-        var canvas = document.createElement("canvas");
-        canvas.width = video.videoWidth * scale;
-        canvas.height = video.videoHeight * scale;
-        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-        var img = document.createElement("img");
-        img.src = canvas.toDataURL();
-        predict(img.src);
-        console.log("got here");
-        setTimeout("captureImage()",1000);
-}; */
