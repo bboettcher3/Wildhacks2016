@@ -3,6 +3,7 @@
   <head>
     <title>Home Security WH16</title>
     <link rel="stylesheet" type="text/css" href="/static/assets/style.css">
+    <script type="text/javascript" src="/static/viewer.js"></script>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
   </head>
@@ -11,18 +12,9 @@
     <button id="snap">Snap Photo</button>
     <canvas id="cameraCanvas" width="640" height="480"></canvas>
 
+    <!-- todo: make some kind of central init point for js scripts -->
     <script>
-      // Grab elements, create settings, etc.
-      var video = document.getElementById('cameraVideoInput');
-
-      // Get access to the camera!
-      if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-          // Not adding `{ audio: true }` since we only want video now
-          navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-              video.src = window.URL.createObjectURL(stream);
-              video.play();
-          });
-      }
+      window.onload = initViewer();
     </script>
   </body>
 </html>
