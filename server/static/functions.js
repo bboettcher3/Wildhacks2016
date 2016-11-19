@@ -87,10 +87,8 @@ function addImages(imageArray, name) {
     // Create or retrieve model "allowed", add concept if needed
     function createModel(inputs) {
         app.models.get("allowed").then(
-            app.models.initModel("allowed").then(
-                model.addConcepts({name})
-            ),
-            app.models.create("allowed", [name]).then(trainModel);
+            app.models.initModel("allowed").then(model.addConcepts({name})),
+            app.models.create("allowed", [name]).then(trainModel)
         );
     }
 
