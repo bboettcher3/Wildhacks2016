@@ -2,6 +2,8 @@ var client_id = "Kb1pJ001acqRnepht0tcVX-tS21TmBuenEmosual";
 var client_secret = "ZI4mcw64qdj5lia9RHYeNWegaOX37kbphTrakwtl";
 
 var app = new Clarifai.App(client_id, client_secret);
+var modelID = "f45a71fde569475084d4eecdcad177e0";
+model = app.models.get(modelID);
 
 var video = document.getElementById("cameraVideoInput");
 
@@ -65,9 +67,9 @@ function addImages(imageArray, name) {
 
     // Create or retrieve model "allowed", add concept if needed
     function createModel(inputs) {
-        app.models.get("allowed").then(
-            app.models.initModel("allowed").then(model.addConcepts({name})),
-            app.models.create("allowed", [name]).then(trainModel)
+        app.models.get(modelID).then(
+            app.models.initModel(modelID).then(model.addConcepts({name})),
+            app.models.create(modelID, [name]).then(trainModel)
         );
     }
 
@@ -107,7 +109,7 @@ function addImages(imageArray, name) {
                 ]
             },
         ]);
-        app.models.get("allowed").train();*/
+        app.models.get(modelID).train();*/
 }
 
 /**
@@ -115,7 +117,7 @@ function addImages(imageArray, name) {
   * of what concepts the image contains.
   * @return: an array of results
   */
-function predict(byteArray, datasetName) {
+function predict(byteArray, datasetName=null) {
   reauthorize();
 
   var dataset = null;
@@ -128,6 +130,7 @@ function predict(byteArray, datasetName) {
 
   //If we have that dataset, use it.
   if(dataset != null) {
+    console.log("Using dataset " + dataset);
     app.models.predict(dataset, {base64: byteArray}).then(
       function(response) {
         //console.log("Got " + datasetName + " model data!");
@@ -158,16 +161,18 @@ function predict(byteArray, datasetName) {
       }
     );
   } else { //If not, then go with our custom one.
-    app.models.get("allowed").then(
+    app.models.get(modelID).then(
       function(model) {
         //console.log(Object.getOwnPropertyNames(model));
-        model.predict(byteArray).then(
+        model.predict({base64: byteArray}).then(
           function(response) {
-            console.log("Got allowed model data!");
-            console.log(response);
-            console.log(response.data.status);
-            //var results = response.get("data");
-            //console.log(results);
+            var concepts = response.data.outputs[0].data.concepts;
+
+            var output = "";
+            for(var i = 0; i < concepts.length; i++) {
+              output += " " + concepts[i].name + " (p= " + concepts[i].value + ")";
+            }
+            console.log(output);
           }, function(error) {
             console.log("Failed getting prediction!");
             console.log(error);

@@ -108,7 +108,7 @@ function snapshot2() { snapshot("cameraVideoInput2"); }
   * collection of bytes. This can then be sent to the Clarifai API.
   */
 function snapshot(id) {
-    console.log("Taking a snapshot!");
+    //console.log("Taking a snapshot!");
 
     //Actual video recording element
     var video = document.getElementById(id);
@@ -127,7 +127,7 @@ function snapshot(id) {
 
     //Do an actual API call - need to pass to something that has API
     //app.inputs.create_image_from_base64(base64_bytes=bytes);
-    var results = predict(bytes, "general");
-    console.log("Did an API call!");
-    console.log(results);
+    var results = predict(bytes);
+    //console.log("Did an API call!");
+    //console.log(results);
 }
