@@ -36,7 +36,6 @@
                             <video id="cameraVideoInput2" width="320" height="180" autoplay></video>
                         </div>
                         <button type="button" onclick="check();">Submit Photos</button>
-                        <p class="byteData"></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -51,12 +50,12 @@
         <script type="text/javascript">
             var _URL = window.URL || window.webkitURL;
             console.clear();
-            var byteData;
+            var byteArray;
 
             $(function() {
-                byteData = [];
+                byteArray = [];
                 $("input[type=file]").on("change", function(e) {
-                    /*var p = $("p.byteData").empty();*/
+                    /*var p = $("p.byteArray").empty();*/
                     var file = this.files
                     $.when.apply($, $.map(file, function(img, i) {
                         return new $.Deferred(function(dfd) {
