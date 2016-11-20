@@ -59,13 +59,13 @@ function reauthorize() {
 /**
     * Adds an array of images (in base64_bytes representation) to the model
     */
-function addImages(imageArray, name) {
+function addImages(imageArray, name, bool) {
     reauthorize();
 
     var images = [];
 
     for(var i = 0; i < imageArray.length; i++) {
-        images.push({base64: imageArray[i], concepts: [{id: name, value: true}]});
+        images.push({base64: imageArray[i], concepts: [{id: name, value: bool}]});
     }
     // Create images in app, for model to use
     app.inputs.create(images).then(createModel);
