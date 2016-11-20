@@ -30,8 +30,8 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#myModal" data-toggle="modal">Upload image</a></li>
                         <li><a href="#myModal2" data-toggle="modal">Add user</a></li>
+                        <li class="active"><a href="#myModal" data-toggle="modal">Upload image</a></li>
                         <!--<li><a onclick="startRecording(true);">Record Positive</a></li>
                         <li><a onclick="startRecording(false)">Record Negative</a></li>
                         <li><a onclick="stopRecording();">Stop Recording</a></li>
@@ -108,19 +108,20 @@
                 else {
                     name = document.getElementById("naming").value;
                     $("#navbar ul").empty();
-                    $("#navbar ul").append('<li class="active"><a href="#myModal" data-toggle="modal">Upload image</a></li>');
-                    $("#navbar ul").append('<li><a href="#myModal2">Change user</a></li>');
+                    $("#navbar ul").append('<li><a onclick="revert();">Done</a></li>');
                     $("#navbar ul").append('<li><a onclick="startRecording(true);">Record Positive</a></li>');
                     $("#navbar ul").append('<li><a onclick="startRecording(false)">Record Negative</a></li>');
                     $("#navbar ul").append('<li><a onclick="stopRecording();">Stop Recording</a></li>');
-                    $("#navbar ul").append('<li><a onclick="revert();">Done</a></li>');
+                    $("#navbar ul").append('<li class="active"><a href="#myModal2" data-toggle="modal">Change user</a></li>');
+                    $("#navbar ul").append('<li><a href="#myModal" data-toggle="modal">Upload image</a></li>');
                 }
             }
             function revert() {
                 $("#navbar ul").empty();
+                $("#navbar ul").append('<li><a href="#myModal2" data-toggle="modal">Add user</a></li>');
                 $("#navbar ul").append('<li class="active"><a href="#myModal" data-toggle="modal">Upload image</a></li>');
-                $("#navbar ul").append('<li><a href="#myModal2">Add user</a></li>');
                 name = "";
+                document.getElementById("naming").value = "";
             }
         </script>
     </body>
