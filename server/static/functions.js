@@ -1,3 +1,17 @@
+var angApp = angular.module('angApp', []);
+
+angApp.controller('controller', function($scope, $http, $rootScope, $location, USER) {
+    $scope.app = = new Clarifai.App(client_id, client_secret);
+    console.log(client_id);
+    
+    $scope.model = $scope.app.get(modelID);
+    
+    $scope.test = function() {
+        console.log("test Passed!");
+    }
+    
+});
+
 var client_id = "Kb1pJ001acqRnepht0tcVX-tS21TmBuenEmosual";
 var client_secret = "ZI4mcw64qdj5lia9RHYeNWegaOX37kbphTrakwtl";
 
