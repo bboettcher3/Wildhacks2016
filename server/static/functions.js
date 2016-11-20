@@ -111,32 +111,6 @@ function addImages(imageArray, name) {
 }
 
 /**
-<<<<<<< Updated upstream
-    * Given a base64_bytes representation of an Image, returns the predictions
-    * of what concepts the image contains.
-    * @return: an array of results
-    */
-function predict(byteArray) {
-    reauthorize();
-
-    app.models.get("allowed").then(
-        function(model) {
-            //console.log(Object.getOwnPropertyNames(model));
-            model.predict(byteArray).then(
-                function(response) {
-                    //console.log(response);
-                    console.log(response.data.status);
-                    //var results = response.get("data");
-                    //console.log(results);
-                }, function(error) {
-                    console.log("Failed getting prediction!");
-                    console.log(error);
-                }
-            );
-        }, function(error) {
-            console.log("Failed getting model!");
-            console.log(error);
-=======
   * Given a base64_bytes representation of an Image, returns the predictions
   * of what concepts the image contains.
   * @return: an array of results
@@ -168,7 +142,6 @@ function predict(byteArray, datasetName) {
             hasPerson = true;
             break;
           }
-          //}
           //console.log(concepts[i].name + " ");
           output += " " + concepts[i].name;
         }
@@ -206,15 +179,4 @@ function predict(byteArray, datasetName) {
       }
     );
   }
-
-  /*
-    app.models.get("allowed").predict(byteArray).then(
-      function(response) {
-        console.log("Succeeded in getting prediction results!");
-        var results = result.get("outputs")[0].get("data").get("concepts");
-        for (var i = 0; i < results.length; i++) {
-            console.log( results[i].get("name") );
->>>>>>> Stashed changes
-        }
-    )
 }
