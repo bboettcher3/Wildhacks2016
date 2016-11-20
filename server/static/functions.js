@@ -144,13 +144,13 @@ function predict(byteArray, datasetName=null) {
           if(concepts[i].name == "person" || concepts[i].name == "people") {
             //console.log("person");
             hasPerson = true;
-            break;
+            //break;
           }
           //console.log(concepts[i].name + " ");
           output += " " + concepts[i].name;
         }
 
-        //console.log("Image contains: " + output);
+        console.log("Image contains: " + output);
 
         if(hasPerson)
           console.log("Image most likely contains a person!");
@@ -162,9 +162,11 @@ function predict(byteArray, datasetName=null) {
       }
     );
   } else { //If not, then go with our custom one.
+    console.log("Loading custom model.");
     app.models.get(modelID).then(
       function(model) {
         //console.log(Object.getOwnPropertyNames(model));
+
         model.predict({base64: byteArray}).then(
           function(response) {
             var concepts = response.data.outputs[0].data.concepts;
