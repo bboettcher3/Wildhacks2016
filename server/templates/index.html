@@ -35,7 +35,7 @@
                         <div class="col-sm-6" style="border-left: 1px solid black;">
                             <video id="cameraVideoInput2" width="320" height="180" autoplay></video>
                         </div>
-                        <button type="button">Select Photos</button>
+                        <button type="button" class="viewFiles">Select Photos</button>
                         <p></p>
                     </div>
                     <div class="modal-footer">
@@ -54,7 +54,7 @@
             console.clear();
 
             $(function() {
-                $("button[type=button]").on("click", function(e) {
+                $("button[class=viewFiles]").on("click", function(e) {
                     $("input[type=file]").trigger("click");
                 });
                 $("input[type=file]").on("change", function(e) {
