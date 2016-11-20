@@ -48,6 +48,7 @@ function initViewer() {
 /**
   * Called to initialize the viewer and screenshotter loop.
   */
+/*
 function initViewer2() {
     onBlur();
 
@@ -87,7 +88,7 @@ function initViewer2() {
             setInterval(snapshot2, 2500);
         });
     }
-}
+}*/
 
 function onBlur() {
   var video = document.getElementById("cameraVideoInput");
@@ -118,7 +119,7 @@ function sendText(to, body, image=null) {
 
 function snapshot1() { snapshot("cameraVideoInput"); }
 
-function snapshot2() { snapshot("cameraVideoInput2"); }
+//function snapshot2() { snapshot("cameraVideoInput2"); }
 
 /**
   * This function takes a frame from the video stream and saves it as a
