@@ -36,10 +36,11 @@ function initViewer() {
     navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
       video.src = window.URL.createObjectURL(stream);
       video.play();
+      video.focus(); //force focus so blur works
 
       //Take a screenshot every time interval - only do this when permitted
       console.log("Setting an interval!");
-      setInterval(snapshot1, 5000);
+      setInterval(snapshot1, 2500);
     });
   }
 }
@@ -48,6 +49,8 @@ function initViewer() {
   * Called to initialize the viewer and screenshotter loop.
   */
 function initViewer2() {
+    onBlur();
+
     // Grab elements, create settings, etc.
     var video2 = document.getElementById("cameraVideoInput2");
 
@@ -81,9 +84,23 @@ function initViewer2() {
 
             //Take a screenshot every time interval - only do this when permitted
             console.log("Setting an interval!");
-            setInterval(snapshot2, 5000);
+            setInterval(snapshot2, 2500);
         });
     }
+}
+
+function onBlur() {
+  var video = document.getElementById("cameraVideoInput");
+  $("#cameraVideoInput").css('-webkit-filter', "blur(15px)");
+  video.pause();
+  shouldSkip = true;
+}
+
+function onFocus() {
+  var video = document.getElementById("cameraVideoInput");
+  $("#cameraVideoInput").css('-webkit-filter', "blur(0px)");
+  video.play();
+  shouldSkip = false;
 }
 
 function sendText(to, body, image=null) {
@@ -108,6 +125,7 @@ function snapshot2() { snapshot("cameraVideoInput2"); }
   * collection of bytes. This can then be sent to the Clarifai API.
   */
 function snapshot(id) {
+    if(shouldSkip) return;
     //console.log("Taking a snapshot!");
 
     //Actual video recording element
