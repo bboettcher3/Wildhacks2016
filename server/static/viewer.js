@@ -44,48 +44,6 @@ function initViewer() {
   }
 }
 
-/**
-  * Called to initialize the viewer and screenshotter loop.
-  */
-function initViewer2() {
-    // Grab elements, create settings, etc.
-    var video2 = document.getElementById("cameraVideoInput2");
-
-    // Get access to the camera!
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        console.log("Camera is supported!");
-
-        //Enumerate all devices - for debugging info
-        navigator.mediaDevices.enumerateDevices()
-        .then(function(devices) {
-            devices.forEach(function(device) {
-                console.log(device.kind + ": " + device.label +
-                            " id = " + device.deviceId);
-            });
-        })
-        .catch(function(err) {
-            console.log(err.name + ": " + err.message);
-        });
-
-        var constraints = {
-            video: {
-                width: 320,
-                height: 180
-            }
-        };
-
-        //Actually request the camera and display it (if permitted)
-        navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-            video2.src = window.URL.createObjectURL(stream);
-            video2.play();
-
-            //Take a screenshot every time interval - only do this when permitted
-            console.log("Setting an interval!");
-            setInterval(snapshot2, 1000);
-        });
-    }
-}
-
 function sendText(to, body, image=null) {
   var endpoint =
     "/text?to=" + to +
