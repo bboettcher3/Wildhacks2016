@@ -1,3 +1,9 @@
+var shouldSkip = false;
+var recording = false;
+var positive = true;
+
+var interval = 2500;
+
 /**
   * Called to initialize the viewer and screenshotter loop.
   */
@@ -40,7 +46,7 @@ function initViewer() {
 
       //Take a screenshot every time interval - only do this when permitted
       console.log("Setting an interval!");
-      setInterval(snapshot1, 2500);
+      setInterval(snapshot1, interval);
     });
   }
 }
@@ -84,7 +90,7 @@ function initViewer2() {
 
             //Take a screenshot every time interval - only do this when permitted
             console.log("Setting an interval!");
-            setInterval(snapshot2, 2500);
+            setInterval(snapshot2, interval);
         });
     }
 }
@@ -101,6 +107,17 @@ function onFocus() {
   $("#cameraVideoInput").css('-webkit-filter', "blur(0px)");
   video.play();
   shouldSkip = false;
+}
+
+function startRecording(bool) {
+  console.log("Starting recording!");
+  recording = true;
+  positive = bool;
+}
+
+function stopRecording() {
+  console.log("Stopping recording!");
+  recording = false;
 }
 
 function sendText(to, body, image=null) {
@@ -134,6 +151,8 @@ function snapshot(id) {
     //A canvas upon which we'll draw
     var canvas = document.createElement("canvas");
     var context = canvas.getContext("2d");
+    canvas.width = video.videoWidth;      //This needs to be the actual
+    canvas.height = video.videoHeight;    //video dimensions..
 
     //Draw the image - no need for error checking since this method is only
     //called when the stream is open & valid
@@ -143,9 +162,14 @@ function snapshot(id) {
     var bytes = canvas.toDataURL("image/png").split(",")[1];
     //console.log("Image data: " + bytes);
 
-    //Do an actual API call - need to pass to something that has API
-    //app.inputs.create_image_from_base64(base64_bytes=bytes);
-    var results = predict(bytes);
+    if(recording) {
+      addImages([bytes], "George", positive);
+      console.log("Uploaded a new image!");
+    } else {
+      //Do an actual API call - need to pass to something that has API
+      var results = predict(bytes);
+      console.log("Got prediction");
+    }
     //console.log("Did an API call!");
     //console.log(results);
 }
