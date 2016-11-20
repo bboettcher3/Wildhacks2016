@@ -30,7 +30,7 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#myModal" data-toggle="modal" onclick="initViewer2();">Upload image</a></li>
+                        <li class="active"><a href="#myModal" data-toggle="modal" onclick="getConcepts();">Upload image</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -52,11 +52,11 @@
                     </div>
                     <div class="modal-body">
                         <!--<div class="col-sm-6">-->
-                        <p>Name: </p><input type="text" name="name" value="" maxlength="100" id="concept" />
+                        <p>Name: </p><div id="allConcepts"></div>
                         <p>Upload/Add images: </p><input type="file" name="img" accept="image/*" id="images" multiple />
-                        <input type="radio" name="train" id="pos" value="positive"> Positive
-                        <input type="radio" name="train" id="neg" value="negative"> Negative
-                        <button type="button" onclick="check();">Submit Photos</button>
+                        <br />
+                        <button onclick="check()" name="train" id="pos" class="btn btn-success"> Submit Positives
+                        <button onclick="check()" name="train" id="neg" class="btn btn-primary"> Submit Negatives
                         <!--</div>-->
                         <!--<div class="col-sm-6" style="border-left: 1px solid black;">
                             <video id="cameraVideoInput2" width="320" height="180" autoplay></video>

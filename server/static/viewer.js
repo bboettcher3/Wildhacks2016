@@ -1,3 +1,5 @@
+var shouldSkip = false;
+
 /**
   * Called to initialize the viewer and screenshotter loop.
   */

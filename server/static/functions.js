@@ -3,12 +3,45 @@ var client_secret = "U4lkpzyQep-Nhj22ObMivLfKT0E-o1ZLZk6Q6NIH";
 
 var app = new Clarifai.App(client_id, client_secret);
 var modelID = "d9ed5bf8f8a5434fa756ef0a976a6cbc";
-model = app.models.get(modelID);
+var model = app.models.get(modelID);
 
 var video = document.getElementById("cameraVideoInput");
 
 var access_token = "";
 var expire_time = 0;
+
+var concepts;
+
+/**
+    * Adds each concept as an element
+    * to the modal
+    */            
+function getConcepts() {
+    //alert("adding concepts");
+    var div = document.getElementById("allConcepts");
+    console.log("adding concepts");
+    console.log(model);
+    
+    app.models.get(modelID).then(
+      function(model) {
+          console.log("inside");
+          for (var i = 0; i < concepts.length; i++) {
+              console.log("looping");
+              var input = document.createElement("input");
+              var label = document.createElement("label");
+              input.type = "radio";
+              input.name = "customButtons";
+              label.appendChild(input);
+              label.innerHTML += concepts[i].name;
+              div.appendChild(label);
+          }
+      }, function(error) {
+        console.log("Failed adding concepts!");
+        console.log(error);
+      }
+    );  
+}
+
 
 /**
     * Authorizes a user with our given client ID and secret.
@@ -164,10 +197,9 @@ function predict(byteArray, datasetName=null) {
   } else { //If not, then go with our custom one.
     app.models.get(modelID).then(
       function(model) {
-        //console.log(Object.getOwnPropertyNames(model));
         model.predict({base64: byteArray}).then(
           function(response) {
-            var concepts = response.data.outputs[0].data.concepts;
+            concepts = response.data.outputs[0].data.concepts;
 
             var output = "";
             for(var i = 0; i < concepts.length; i++) {
