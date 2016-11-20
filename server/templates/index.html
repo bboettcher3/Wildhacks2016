@@ -31,7 +31,7 @@
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="#myModal" data-toggle="modal">Upload image</a></li>
-                        <li><a href="#myModal2">Add user</a></li>
+                        <li><a href="#myModal2" data-toggle="modal">Add user</a></li>
                         <!--<li><a onclick="startRecording(true);">Record Positive</a></li>
                         <li><a onclick="startRecording(false)">Record Negative</a></li>
                         <li><a onclick="stopRecording();">Stop Recording</a></li>
@@ -104,7 +104,7 @@
         <script type="text/javascript">
             var name;
             function check2() {
-                if (document.getElementById("naming").value == "") alert("Please enter in your name associated with your concept tag.");
+                if (document.getElementById("naming").value == "") alert("Please enter in the name associated with your concept tag.");
                 else {
                     name = document.getElementById("naming").value;
                     $("#navbar ul").empty();
