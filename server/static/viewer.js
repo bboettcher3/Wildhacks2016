@@ -47,6 +47,7 @@ function initViewer() {
 /**
   * Called to initialize the viewer and screenshotter loop.
   */
+/*
 function initViewer2() {
     // Grab elements, create settings, etc.
     var video2 = document.getElementById("cameraVideoInput2");
@@ -84,7 +85,7 @@ function initViewer2() {
             setInterval(snapshot2, 1000);
         });
     }
-}
+}*/
 
 function sendText(to, body, image=null) {
   var endpoint =
@@ -101,7 +102,7 @@ function sendText(to, body, image=null) {
 
 function snapshot1() { snapshot("cameraVideoInput"); }
 
-function snapshot2() { snapshot("cameraVideoInput2"); }
+/*function snapshot2() { snapshot("cameraVideoInput2"); }*/
 
 /**
   * This function takes a frame from the video stream and saves it as a
