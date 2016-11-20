@@ -1,8 +1,8 @@
-var client_id = "Kb1pJ001acqRnepht0tcVX-tS21TmBuenEmosual";
-var client_secret = "ZI4mcw64qdj5lia9RHYeNWegaOX37kbphTrakwtl";
+var client_id = "xloYZpD-bFlD1DAPPAo2xPY-RqgwN7XfBqPfSqGw";
+var client_secret = "U4lkpzyQep-Nhj22ObMivLfKT0E-o1ZLZk6Q6NIH";
 
 var app = new Clarifai.App(client_id, client_secret);
-var modelID = "f45a71fde569475084d4eecdcad177e0";
+var modelID = "d9ed5bf8f8a5434fa756ef0a976a6cbc";
 model = app.models.get(modelID);
 
 var video = document.getElementById("cameraVideoInput");
@@ -21,6 +21,7 @@ function authorize() {
         function(token) {
             //Our new access token for API calls
             access_token = token.access_token;
+            //console.log("Your access token is " + access_token);
 
             //Check against this- if time > expire_time, renew before calling.
             expire_time = (new Date).getTime() + token.expires_in;
@@ -54,13 +55,13 @@ function addConcept(name) {
 /**
     * Adds an array of images (in base64_bytes representation) to the model
     */
-function addImages(imageArray, name) {
+function addImages(imageArray, name, bool) {
     reauthorize();
 
     var images = [];
 
     for(var i = 0; i < imageArray.length; i++) {
-        images.push({base64: imageArray[i], concepts: [{id: name, value: true}]});
+        images.push({base64: imageArray[i], concepts: [{id: name, value: bool}]});
     }
     // Create images in app, for model to use
     app.inputs.create(images).then(createModel);
@@ -181,6 +182,10 @@ function predict(byteArray, datasetName=null) {
       }, function(error) {
         console.log("Failed getting model!");
         console.log(error);
+        //console.log(error.data.status);
+        //console.log(error.headers);
+        //console.log(error.config);
+        //console.log(error.request);
       }
     );
   }

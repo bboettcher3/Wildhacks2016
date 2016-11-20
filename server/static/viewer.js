@@ -39,7 +39,7 @@ function initViewer() {
 
       //Take a screenshot every time interval - only do this when permitted
       console.log("Setting an interval!");
-      setInterval(snapshot1, 1000);
+      setInterval(snapshot1, 5000);
     });
   }
 }
@@ -81,7 +81,7 @@ function initViewer2() {
 
             //Take a screenshot every time interval - only do this when permitted
             console.log("Setting an interval!");
-            setInterval(snapshot2, 1000);
+            setInterval(snapshot2, 5000);
         });
     }
 }
