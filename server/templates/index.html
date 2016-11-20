@@ -75,8 +75,8 @@
             var byteArray;
 
             $(function() {
-                byteArray = [];
                 $("input[type=file]").on("change", function(e) {
+                    byteArray = [];
                     /*var p = $("p.byteArray").empty();*/
                     var file = this.files
                     $.when.apply($, $.map(file, function(img, i) {
