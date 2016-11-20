@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< Updated upstream
     <head>
         <title>Home Security WH16</title>
         <link rel="stylesheet" type="text/css" href="../static/assets/style.css">
@@ -118,3 +119,51 @@
         </script>
     </body>
 </html>
+=======
+   <head>
+       <title>Home Security WH16</title>
+       <link rel="stylesheet" type="text/css" href="/static/assets/style.css">
+       <script type="text/javascript" src="/static/twilio.js"></script>
+       <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
+       <script type="text/javascript" src="/static/functions.js"></script>
+       <script type="text/javascript" src="/static/viewer.js"></script>
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+       <meta name="viewport" content="initial-scale=1.0">
+       <meta charset="utf-8">
+   </head>
+   <body>
+       <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+           <span class="glyphicon glyphicon-plus"></span> Upload
+       </button>
+       <video id="cameraVideoInput" width="640" height="480" autoplay></video>
+       <!-- Modal -->
+       <div class="modal fade" id="myModal" role="dialog">
+           <div class="modal-dialog">
+               <!-- Modal content-->
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                       <h4 class="modal-title">Upload images of your full body</h4>
+                   </div>
+                   <div class="modal-body">
+                       <form action="" method="post">
+                           <p>Name: </p><input type="text" name="name" value="" maxlength="100" />
+                           <p>Upload/Add images: </p><input type="file" name="img" accept="image/*" multiple />
+                           <input type="submit" value="Submit" />
+                       </form>
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <!-- todo: make some kind of central init point for js scripts -->
+       <script>
+           window.onload = initViewer();
+       </script>
+   </body>
+</html>
+>>>>>>> Stashed changes

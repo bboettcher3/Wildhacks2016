@@ -111,6 +111,7 @@ function addImages(imageArray, name) {
 }
 
 /**
+<<<<<<< Updated upstream
     * Given a base64_bytes representation of an Image, returns the predictions
     * of what concepts the image contains.
     * @return: an array of results
@@ -135,6 +136,85 @@ function predict(byteArray) {
         }, function(error) {
             console.log("Failed getting model!");
             console.log(error);
+=======
+  * Given a base64_bytes representation of an Image, returns the predictions
+  * of what concepts the image contains.
+  * @return: an array of results
+  */
+function predict(byteArray, datasetName) {
+  reauthorize();
+
+  var dataset = null;
+  switch(datasetName) {
+    case "general":
+      dataset = Clarifai.GENERAL_MODEL; break;
+    default:
+      dataset = null;
+  }
+
+  //If we have that dataset, use it.
+  if(dataset != null) {
+    app.models.predict(dataset, {base64: byteArray}).then(
+      function(response) {
+        //console.log("Got " + datasetName + " model data!");
+        //console.log("Image contains:");
+        var concepts = response.data.outputs[0].data.concepts;
+        var hasPerson = false;
+
+        var output = "";
+        for(var i = 0; i < concepts.length; i++) {
+          if(concepts[i].name == "person" || concepts[i].name == "people") {
+            //console.log("person");
+            hasPerson = true;
+            break;
+          }
+          //}
+          //console.log(concepts[i].name + " ");
+          output += " " + concepts[i].name;
+        }
+
+        //console.log("Image contains: " + output);
+
+        if(hasPerson)
+          console.log("Image most likely contains a person!");
+        else
+          console.log("Image likely doesn't have a person.");
+      }, function(error) {
+        console.log("Failed to get " + datasetName + " model!");
+        console.log(error);
+      }
+    );
+  } else { //If not, then go with our custom one.
+    app.models.get("allowed").then(
+      function(model) {
+        //console.log(Object.getOwnPropertyNames(model));
+        model.predict(byteArray).then(
+          function(response) {
+            console.log("Got allowed model data!");
+            console.log(response);
+            console.log(response.data.status);
+            //var results = response.get("data");
+            //console.log(results);
+          }, function(error) {
+            console.log("Failed getting prediction!");
+            console.log(error);
+          }
+        );
+      }, function(error) {
+        console.log("Failed getting model!");
+        console.log(error);
+      }
+    );
+  }
+
+  /*
+    app.models.get("allowed").predict(byteArray).then(
+      function(response) {
+        console.log("Succeeded in getting prediction results!");
+        var results = result.get("outputs")[0].get("data").get("concepts");
+        for (var i = 0; i < results.length; i++) {
+            console.log( results[i].get("name") );
+>>>>>>> Stashed changes
         }
     )
 }

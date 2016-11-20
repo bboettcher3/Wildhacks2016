@@ -2,6 +2,7 @@
     * Called to initialize the viewer and screenshotter loop.
     */
 function initViewer() {
+<<<<<<< Updated upstream
     // Grab elements, create settings, etc.
     var video = document.getElementById("cameraVideoInput");
 
@@ -37,11 +38,30 @@ function initViewer() {
             //Take a screenshot every time interval - only do this when permitted
             console.log("Setting an interval!");
             setInterval(snapshot(video.id), 1000);
+=======
+  // Grab elements, create settings, etc.
+  var video = document.getElementById('cameraVideoInput');
+
+  //sendText("+16467501926", "Picture test", "http://25.media.tumblr.com/tumblr_m2x49zIpu11qze0hyo1_1280.jpg");
+  //sendText("+13129526796", "Picture test", "http://i.imgur.com/GK5HtG9.jpg");
+
+  // Get access to the camera!
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      console.log("Camera is supported!");
+
+      //Enumerate all devices - for debugging info
+      navigator.mediaDevices.enumerateDevices()
+      .then(function(devices) {
+        devices.forEach(function(device) {
+          console.log(device.kind + ": " + device.label +
+                      " id = " + device.deviceId);
+>>>>>>> Stashed changes
         });
     }
 }
 
 /**
+<<<<<<< Updated upstream
     * Called to initialize the viewer and screenshotter loop.
     */
 function initViewer2() {
@@ -81,6 +101,58 @@ function initViewer2() {
             setInterval(snapshot(video2.id), 1000);
         });
     }
+=======
+  * This function takes a frame from the video stream and saves it as a
+  * collection of bytes. This can then be sent to the Clarifai API.
+  */
+function snapshot() {
+  //console.log("Taking a snapshot!");
+
+  //Actual video recording element
+  var video = document.getElementById('cameraVideoInput');
+
+  //A canvas upon which we'll draw
+  var canvas = document.createElement('canvas');
+  var context = canvas.getContext('2d');
+
+  //Draw the image - no need for error checking since this method is only
+  //called when the stream is open & valid
+  context.drawImage(video, 0, 0);
+
+  //Get the bytes of the image
+  var bytes = canvas.toDataURL('image/png').split(",")[1];
+  //console.log(bytes);
+  //console.log("Image data: " + bytes);
+
+  //Get the API's prediction of what's in this image
+  var results = predict(bytes, "general");
+  //var concepts; //= getconcepts from API
+
+  /*
+  for(var i = 0; i < concepts.length; i++) {
+    for(var j = 0; j < results.length; j++) {
+      if(results[j].concept == concepts[i])
+        if(results[j].probability >= 0.5) ;
+          //found a person on the OK list
+    }
+  }*/
+
+
+  //console.log(results);
+}
+
+function sendText(to, body, image=null) {
+  var endpoint =
+    "/text?to=" + to +
+    "&body=" + escape(body) +
+    "&image=" + (image == null ? "None" : escape(image));
+
+  console.log(endpoint);
+
+  var xml = new XMLHttpRequest();
+  xml.open("GET", endpoint);
+  xml.send();
+>>>>>>> Stashed changes
 }
 
 /**
