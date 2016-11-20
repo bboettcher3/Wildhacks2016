@@ -1,14 +1,21 @@
+"use strict";
+
 var client_id = "xloYZpD-bFlD1DAPPAo2xPY-RqgwN7XfBqPfSqGw";
 var client_secret = "U4lkpzyQep-Nhj22ObMivLfKT0E-o1ZLZk6Q6NIH";
 
 var app = new Clarifai.App(client_id, client_secret);
 var modelID = "d9ed5bf8f8a5434fa756ef0a976a6cbc";
-model = app.models.get(modelID);
+var model = app.models.get(modelID);
 
 var video = document.getElementById("cameraVideoInput");
 
 var access_token = "";
 var expire_time = 0;
+
+var most_likely_user = "";
+var most_likely_count = 0;
+var detection_threshold = 10;
+var detection_percent = 0.70;
 
 /**
     * Authorizes a user with our given client ID and secret.
@@ -76,7 +83,19 @@ function addImages(imageArray, name, bool) {
 
     // Train model
     function trainModel(model) {
-        model.train().then(predict(imageArray));
+        //model.train().then(predict(imageArray));
+        model.train().then(
+          function(result) {
+            console.log("Trained successfully");
+          }, function(error) {
+            console.log(error);
+          }
+        );
+    }
+
+    for(var i = 0; i < imageArray.length; i++) {
+      images[i] = null;
+      imageArray[i] = null;
     }
         /*app.inputs.create({
             base64: imageArray[i],
@@ -129,11 +148,15 @@ function predict(byteArray, datasetName=null) {
       dataset = null;
   }
 
+  var encoded = {base64: byteArray};
+  byteArray = null;
+
   //If we have that dataset, use it.
   if(dataset != null) {
     console.log("Using dataset " + dataset);
-    app.models.predict(dataset, {base64: byteArray}).then(
+    app.models.predict(dataset, encoded).then(
       function(response) {
+        encoded = null;
         //console.log("Got " + datasetName + " model data!");
         //console.log("Image contains:");
         var concepts = response.data.outputs[0].data.concepts;
@@ -150,6 +173,7 @@ function predict(byteArray, datasetName=null) {
           output += " " + concepts[i].name;
         }
 
+
         console.log("Image contains: " + output);
 
         if(hasPerson)
@@ -162,25 +186,46 @@ function predict(byteArray, datasetName=null) {
       }
     );
   } else { //If not, then go with our custom one.
-    console.log("Loading custom model.");
+    //console.log("Loading custom model.");
     app.models.get(modelID).then(
       function(model) {
         //console.log(Object.getOwnPropertyNames(model));
 
-        model.predict({base64: byteArray}).then(
+        model.predict(encoded).then(
           function(response) {
+            encoded = null;
             var concepts = response.data.outputs[0].data.concepts;
 
             var output = "";
             for(var i = 0; i < concepts.length; i++) {
               output += " " + concepts[i].name + " (p= " + concepts[i].value + ")";
             }
+
+            //Keep track of the most likely user in front of us
+            if(concepts[0].name == most_likely_user &&
+                concepts[0].value >= detection_percent) {
+              most_likely_count = most_likely_count + 1;
+              console.log("Verification step " + most_likely_count + "/" + detection_threshold);
+            } else {
+              most_likely_user = concepts[0].name;
+              most_likely_count = 1;
+            }
+
+            //We have just confirmed that this is someone we know!
+            if(most_likely_count == detection_threshold) {
+              console.log("Welcome back, " + most_likely_user + "!");
+              sendText("+16467501926", "Welcome back, " + most_likely_user + "!");
+            } else if (most_likely_count > detection_threshold) {
+              //As long as someone we know is in front of us..
+            }
+
             console.log(output);
           }, function(error) {
             console.log("Failed getting prediction!");
             console.log(error);
           }
         );
+
       }, function(error) {
         console.log("Failed getting model!");
         console.log(error);
@@ -191,4 +236,15 @@ function predict(byteArray, datasetName=null) {
       }
     );
   }
+}
+
+function sendText(to, body, image=null) {
+  var endpoint =
+    "/text?to=" + to +
+    "&body=" + escape(body) +
+    "&image=" + (image == null ? "None" : escape(image));
+
+  var xml = new XMLHttpRequest();
+  xml.open("GET", endpoint);
+  xml.send();
 }

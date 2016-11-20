@@ -1,8 +1,10 @@
+"use strict";
+
 var shouldSkip = false;
 var recording = false;
 var positive = true;
 
-var interval = 2500;
+var interval = 750;
 
 /**
   * Called to initialize the viewer and screenshotter loop.
@@ -120,19 +122,6 @@ function stopRecording() {
   recording = false;
 }
 
-function sendText(to, body, image=null) {
-  var endpoint =
-    "/text?to=" + to +
-    "&body=" + escape(body) +
-    "&image=" + (image == null ? "None" : escape(image));
-
-  console.log(endpoint);
-
-  var xml = new XMLHttpRequest();
-  xml.open("GET", endpoint);
-  xml.send();
-}
-
 function snapshot1() { snapshot("cameraVideoInput"); }
 
 function snapshot2() { snapshot("cameraVideoInput2"); }
@@ -151,25 +140,34 @@ function snapshot(id) {
     //A canvas upon which we'll draw
     var canvas = document.createElement("canvas");
     var context = canvas.getContext("2d");
-    canvas.width = video.videoWidth;      //This needs to be the actual
-    canvas.height = video.videoHeight;    //video dimensions..
+    canvas.width = video.videoWidth / 2;      //This needs to be the actual
+    canvas.height = video.videoHeight / 2;    //video dimensions..
 
     //Draw the image - no need for error checking since this method is only
     //called when the stream is open & valid
-    context.drawImage(video, 0, 0);
+    //context.drawImage(video, 0, 0);
+    context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight,
+                             0, 0, canvas.width, canvas.height);
 
     //Get the bytes of the image
     var bytes = canvas.toDataURL("image/png").split(",")[1];
     //console.log("Image data: " + bytes);
 
+    var bytesArr = [bytes];
+
     if(recording) {
-      addImages([bytes], "George", positive);
+      addImages(bytesArr, "George", positive);
       console.log("Uploaded a new image!");
     } else {
       //Do an actual API call - need to pass to something that has API
       var results = predict(bytes);
-      console.log("Got prediction");
+      //console.log("Got prediction");
     }
+
+    bytes = null;
+    bytesArr = null;
+    canvas = null;
+    context = null;
     //console.log("Did an API call!");
     //console.log(results);
 }
