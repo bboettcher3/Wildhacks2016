@@ -50,12 +50,13 @@
         </script>
         <script type="text/javascript">
             var _URL = window.URL || window.webkitURL;
-            var byteArray;
             console.clear();
+            var byteData;
 
             $(function() {
+                byteData = [];
                 $("input[type=file]").on("change", function(e) {
-                    var p = $("p.byteData").empty();
+                    /*var p = $("p.byteData").empty();*/
                     var file = this.files
                     $.when.apply($, $.map(file, function(img, i) {
                         return new $.Deferred(function(dfd) {
@@ -68,19 +69,21 @@
 
                                 context.drawImage(this, 0, 0);
 
-                                p.append("<a href=\"" + canvas.toDataURL() + "\" target=\"_blank\">" + e.data + "</a>");
+                                /*p.append("<a href=\"" + canvas.toDataURL() + "\" target=\"_blank\"></a>");*/
+                                dataURL = canvas.toDataURL();
+                                byteArray.push(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                                 dfd.resolve()
                                 URL.revokeObjectURL(this.src);
                             });
                             image.src = URL.createObjectURL(img);
                             return dfd.promise()
                         }).promise()
-                    })).then(function() {
+                    }))/*.then(function() {
                         p.find("a").each(function() {
                             console.log(this.href + "\n");
                             p.append(this.href + "<br>")
                         })
-                    })
+                    })*/
                 });
             })/*
             $("#images").change(function (e) {
