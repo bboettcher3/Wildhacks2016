@@ -107,11 +107,7 @@
             function check() {
                 if (typeof byteArray === "undefined" || byteArray.length == 0) alert("Please select at least one image.");
                 else if (document.getElementById("concept").value == "") alert("Please enter your first name.");
-                else /*addImages(byteArray, document.getElementById("concept").value);*/{
-                    var i = 0;
-                    for (; i < byteArray.length; i++)
-                        alert(byteArray[i])
-                }
+                else addImages(byteArray, document.getElementById("concept").value);
             }
             /*
             function imageArray() {
