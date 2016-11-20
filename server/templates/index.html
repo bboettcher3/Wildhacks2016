@@ -130,7 +130,7 @@
                 if (typeof byteArray === "undefined" || byteArray.length == 0) alert("Please select at least one image.");
                 else if (document.getElementById("concept").value == "") alert("Please enter your first name.");
                 else if (document.getElementById("pos").checked == false && document.getElementById("neg").checked == false) alert("Please select positive or negative classification.");
-                else addImages(byteArray, document.getElementById("concept").value, document.getElementById("pos") == true);
+                else addImages(byteArray, document.getElementById("concept").value, document.getElementById("pos").checked == true);
             }
             /*
             function imageArray() {
