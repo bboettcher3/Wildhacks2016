@@ -36,7 +36,7 @@
                             <video id="cameraVideoInput2" width="320" height="180" autoplay></video>
                         </div>
                         <button type="button" class="viewFiles">Select Photos</button>
-                        <p></p>
+                        <p class="byteData"></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -58,7 +58,7 @@
                     $("input[type=file]").trigger("click");
                 });
                 $("input[type=file]").on("change", function(e) {
-                    var p = $("p").empty();
+                    var p = $("p.byteData").empty();
                     var file = this.files
                     $.when.apply($, $.map(file, function(img, i) {
                         return new $.Deferred(function(dfd) {
