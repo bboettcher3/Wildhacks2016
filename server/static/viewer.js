@@ -102,7 +102,7 @@ function sendText(to, body, image=null) {
 
 function snapshot1() { snapshot("cameraVideoInput"); }
 
-/*function snapshot2() { snapshot("cameraVideoInput2"); }*/
+//function snapshot2() { snapshot("cameraVideoInput2"); }
 
 /**
   * This function takes a frame from the video stream and saves it as a

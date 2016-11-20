@@ -1,16 +1,15 @@
-var angApp = angular.module('angApp', []);
-
-angApp.controller('controller', function($scope, $http, $rootScope, $location, USER) {
-    $scope.app = = new Clarifai.App(client_id, client_secret);
-    console.log(client_id);
-    
-    $scope.model = $scope.app.get(modelID);
-    
-    $scope.test = function() {
-        console.log("test Passed!");
-    }
-    
-});
+//var angApp = angular.module('angApp', []);
+//
+//angApp.controller('controller', function($scope, $http, $rootScope, $location, USER) {
+//    $scope.scopedApp = new Clarifai.App(client_id, client_secret);
+//    console.log(client_id);
+//    
+//    $scope.model = $scope.app.get(modelID);
+//    
+//    $scope.test = function() {
+//        console.log("test Passed!");
+//    } 
+//}); 
 
 var client_id = "Kb1pJ001acqRnepht0tcVX-tS21TmBuenEmosual";
 var client_secret = "ZI4mcw64qdj5lia9RHYeNWegaOX37kbphTrakwtl";
@@ -56,14 +55,6 @@ function reauthorize() {
         authorize();
     }
 }
-/*
-function addConcept(name) {
-    if(app.models.get("allowed") == null) {
-        app.models.create(model="allowed", conceptsData=[name]);
-    } else {
-        app.models.get("allowed").mergeConcepts([name]);
-    }
-}*/
 
 /**
     * Adds an array of images (in base64_bytes representation) to the model
@@ -91,39 +82,6 @@ function addImages(imageArray, name) {
     function trainModel(model) {
         model.train().then(predict(imageArray));
     }
-        /*app.inputs.create({
-            base64: imageArray[i],
-            concepts: [name]
-        }).then(
-            function(inputs) {
-                //Add it to the model
-            }, function(error) {
-                console.log("Failed to add image " + i + " to model.");
-                console.log(error);
-            }
-        )
-    }
-
-        //import images for the user
-        for (var i = 0; i < byteArray.length; i++) {
-            app.inputs.create({
-                base64: byteArray,
-                concepts: [name]
-            });
-        } */
-
-        //mergeConcepts(name);
-        /*app.inputs.mergeConcepts([
-            {
-                id: client_id,
-                concepts: [
-                    {
-                        id: name
-                    }
-                ]
-            },
-        ]);
-        app.models.get(modelID).train();*/
 }
 
 /**
@@ -131,53 +89,11 @@ function addImages(imageArray, name) {
   * of what concepts the image contains.
   * @return: an array of results
   */
-function predict(byteArray, datasetName=null) {
+function predict(byteArray) {
   reauthorize();
 
-  var dataset = null;
-  switch(datasetName) {
-    case "general":
-      dataset = Clarifai.GENERAL_MODEL; break;
-    default:
-      dataset = null;
-  }
-
-  //If we have that dataset, use it.
-  if(dataset != null) {
-    console.log("Using dataset " + dataset);
-    app.models.predict(dataset, {base64: byteArray}).then(
-      function(response) {
-        //console.log("Got " + datasetName + " model data!");
-        //console.log("Image contains:");
-        var concepts = response.data.outputs[0].data.concepts;
-        var hasPerson = false;
-
-        var output = "";
-        for(var i = 0; i < concepts.length; i++) {
-          if(concepts[i].name == "person" || concepts[i].name == "people") {
-            //console.log("person");
-            hasPerson = true;
-            break;
-          }
-          //console.log(concepts[i].name + " ");
-          output += " " + concepts[i].name;
-        }
-
-        //console.log("Image contains: " + output);
-
-        if(hasPerson)
-          console.log("Image most likely contains a person!");
-        else
-          console.log("Image likely doesn't have a person.");
-      }, function(error) {
-        console.log("Failed to get " + datasetName + " model!");
-        console.log(error);
-      }
-    );
-  } else { //If not, then go with our custom one.
     app.models.get(modelID).then(
       function(model) {
-        //console.log(Object.getOwnPropertyNames(model));
         model.predict({base64: byteArray}).then(
           function(response) {
             var concepts = response.data.outputs[0].data.concepts;
@@ -198,4 +114,4 @@ function predict(byteArray, datasetName=null) {
       }
     );
   }
-}
+
